@@ -10,4 +10,4 @@ Main Developers:
 
 [zeusssz](https://github.com/zeusssz) : Main Programmer
 <br>
-[SPS101](https://github.com/SPS101) : Assisting Programmer
+[SPS1010](https://github.com/SPS1010) : Assisting Programmer
