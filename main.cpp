@@ -6,6 +6,7 @@ const int LMotorPin = 9;
 const int RMotorPin = 10;
 Servo LMotor;
 Servo RMotor;
+
 int baseSpeed = 1500;  // NTRL throttle signal (thanks google)
 int differential = 200; // TODO: math out the irl thing
 
@@ -20,8 +21,10 @@ struct Waypoint {
 
 // get actual points
 Waypoint waypoints[] = {
-  {0.000, -0.000},
-  {0.000, -0.000},
+  {00.0001, -00.0002}, // Point A
+  {00.0003, -00.0004}, // Point B
+  {00.0005, -00.0006}, // Point C
+  {0.0007, -0.0007}, // Point D
 };
 int totalWaypoints = sizeof(waypoints) / sizeof(Waypoint);
 int currentWaypoint = 0;
@@ -36,25 +39,23 @@ void rageflight(double currentLat, double currentLon) {
   int RMotorSpeed = baseSpeed;
 
   if (latDiff > 0) {
-    RMotorSpeed += 50;
+    RMotorSpeed += 50; // turn R
   } else {
-    LMotorSpeed += 50;
+    LMotorSpeed += 50; // turn L
   }
 
   if (lonDiff > 0) {
-    RMotorSpeed -= 50;
+    RMotorSpeed -= 50; // move L
   } else {
-    LMotorSpeed -= 50;
+    LMotorSpeed -= 50; // move R
   }
 
   LMotor.writeMicroseconds(LMotorSpeed);
   RMotor.writeMicroseconds(RMotorSpeed);
 
+  // BIRD (check if it reached the current waypoint)
   if (abs(latDiff) < 0.0001 && abs(lonDiff) < 0.0001) {
-    currentWaypoint++;
-    if (currentWaypoint >= totalWaypoints) {
-      currentWaypoint = 0;
-    }
+    currentWaypoint = (currentWaypoint + 1) % totalWaypoints; // cycler
   }
 }
 
@@ -70,12 +71,13 @@ void setup() {
   LMotor.attach(LMotorPin);
   RMotor.attach(RMotorPin);
 
+  // initialise motors
   LMotor.writeMicroseconds(baseSpeed);
   RMotor.writeMicroseconds(baseSpeed);
 
-  delay(2000);
+  delay(2000); // motor initialization
 
-  gpsSerial.begin(9600);
+  gpsSerial.begin(9600); // initialise GPS comms
 }
 
 void loop() {
