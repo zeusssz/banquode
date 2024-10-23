@@ -1,2 +1,2 @@
-# banquode
-Code for a spooky scary ghost drone
+# Banquo(de)
+Code for the drone flying our dear Shakespearean ghost, used for the Macbeth Play
