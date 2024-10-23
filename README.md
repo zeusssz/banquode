@@ -9,5 +9,3 @@ Arduino based drone code, with both set gps waypoints and automatic circular fli
 Main Developers:
 
 [zeusssz](https://github.com/zeusssz) : Main Programmer
-<br>
-[SPS1010](https://github.com/SPS1010) : Assisting Programmer
